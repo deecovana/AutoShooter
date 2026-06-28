@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://4eppw7l6ayej"]
+
+[ext_resource type="PackedScene" uid="uid://da35gqj31fuag" path="res://landscape/Landscape 5km 10m.glb" id="1_rbs30"]
+[ext_resource type="PackedScene" uid="uid://dmyathmsl6yat" path="res://landscape/Landscape 5km 10m strata.glb" id="2_lfgxc"]
+
+[node name="Node3D" type="Node3D" unique_id=1780432760]
+
+[node name="LandScape" type="Node3D" parent="." unique_id=467355723]
+
+[node name="Landscape 5km 10m" parent="LandScape" unique_id=72216182 instance=ExtResource("1_rbs30")]
+
+[node name="Landscape 5km 10m strata" parent="LandScape" unique_id=771973938 instance=ExtResource("2_lfgxc")]
+visible = false
