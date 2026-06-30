@@ -7,6 +7,7 @@
 	1. Save AutoLoad Settings and Options 
 	2. (preamble) Options Menu UI
 - Fixed MD code visuals
+- Tagged documents-chapter-1-start
 
 ## Add 2 basic 5x5km landscapes
 - With and without Strata levels
