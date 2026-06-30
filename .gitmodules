@@ -1,3 +1,6 @@
 [submodule "GodotAppData"]
 	path = GodotAppData
 	url = ./GodotAppData
+[submodule "documents/PUML"]
+	path = documents/PUML
+	url = https://github.com/deecovana/PUML.git
