@@ -1,0 +1,65 @@
+# Save Settings in Godot 4
+To save game settings in Godot 4, you can use either the ConfigFile class or a custom Resource. 
+The ConfigFile approach writes standard, human-readable INI files (with sections and key-value pairs), 
+making it perfect for straightforward volume, resolution, and keybinding settings.
+                                                                                                                                                                                                                                                                                         
+Here is a quick, practical guide on how to save settings using ConfigFile and ResourceSaver.
+
+## Method 1: Using ConfigFile (Recommended forINI-style files)
+
+This method organizes settings by sections (e.g., "Audio", "Video") and saves the file 
+directly to your system's user data directory (user://).
+
+1. Saving Data
+
+	var config = ConfigFile.new()
+
+	# Set values
+	config.set_value("Audio", "master_vol", 80.0)
+	config.set_value("Video", "fullscreen", true)
+
+	# Save to disk
+	var err = config.save("user://settings.cfg")
+	if err != OK:
+		print("Failed to save settings!")
+
+2. Loading Data
+
+	var config = ConfigFile.new()
+
+	# Load the file
+	var err = config.load("user://settings.cfg")
+	if err == OK:
+		# Get value with a fallback default in case the key doesn't exist
+		var master_vol = config.get_value("Audio", "master_vol", 100.0)
+		var is_fullscreen = config.get_value("Video", "fullscreen", false)
+
+
+## Method 2: Using Custom Resources (Object-Oriented Approach)
+
+Godot's Resource system is highly recommended by the community 
+because it natively serializes data, can be edited directly in the Godot Inspector, 
+and requires very little manual parsing.
+
+1. Create a Custom Resource Script
+
+	# save_settings.gd
+	class_name GameSettings
+	extends Resource
+
+	@export var master_volume: float = 100.0
+	@export var fullscreen: bool = true
+
+2. Saving the Resource
+
+	var settings = GameSettings.new()
+	settings.master_volume = 80.0
+	settings.fullscreen = true
+
+	ResourceSaver.save(settings, "user://settings.tres")
+
+3. Loading the Resource
+
+	if ResourceLoader.exists("user://settings.tres"):
+		var settings: GameSettings = ResourceLoader.load("user://settings.tres") as GameSettings
+		print(settings.master_volume)
