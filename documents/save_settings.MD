@@ -1,4 +1,4 @@
-# Save Settings in Godot 4
+# Save Game Settings in Godot 4
 To save game settings in Godot 4, you can use either the ConfigFile class or a custom Resource. 
 The ConfigFile approach writes standard, human-readable INI files (with sections and key-value pairs), 
 making it perfect for straightforward volume, resolution, and keybinding settings.

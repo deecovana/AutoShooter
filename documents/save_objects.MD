@@ -1,0 +1,80 @@
+# Save the Object's values
+
+You can absolutely save all @export variables with their current values and load them automatically 
+when the game starts.The cleanest, most "Godot-way" to do this is by putting those variables 
+into a Custom Resource and using Godot's built-in ResourceSaver and ResourceLoader. 
+
+Godot will automatically handle saving and loading every single exported variable inside that resource 
+with just a few lines of code.Here is how to set it up step-by-step:
+
+## 1. Create the Settings Script
+
+Create a new script named game_settings.gd. This script extends Resource and defines all the variables you want to save.
+
+	# game_settings.gd
+	class_name GameSettings
+	extends Resource
+
+	# Every @export variable here will be saved automatically
+	@export var master_volume: float = 100.0
+	@export var music_volume: float = 80.0
+	@export var fullscreen: bool = false
+	@export var player_name: String = "Player"
+
+
+## 2. Create the Manager ScriptCreate a script (or an AutoLoad singleton) to handle the saving and loading. 
+
+This script holds the active instance of your settings and handles the files in the safe user:// directory.
+
+	# settings_manager.gd
+	extends Node
+
+	const SAVE_PATH = "user://game_settings.tres"
+	var current_settings: GameSettings
+
+	func _ready() -> void:
+		load_settings()
+
+	# Call this whenever a setting changes or when exiting the game
+	func save_settings() -> void:
+		var error = ResourceSaver.save(current_settings, SAVE_PATH)
+		if error != OK:
+			print("Failed to save settings. Error code: ", error)
+
+	# This runs automatically on game startup via _ready()
+	func load_settings() -> void:
+		if ResourceLoader.exists(SAVE_PATH):
+			current_settings = ResourceLoader.load(SAVE_PATH) as GameSettings
+			print("Settings loaded successfully!")
+		else:
+			# Create default settings if no save file exists yet
+			current_settings = GameSettings.new()
+			print("No save file found. Created default settings.")
+
+## 3. How to Use It in Your Game
+
+Once you have the manager set up, you can modify variables directly and save them instantly.
+
+	# Example UI script (like an options menu)
+	extends Node
+
+	func _on_volume_slider_changed(value: float) -> void:
+		# Update the value
+		SettingsManager.current_settings.master_volume = value
+		
+		# Save it immediately to the disk
+		SettingsManager.save_settings()
+
+	func _on_fullscreen_toggled(button_pressed: bool) -> void:
+		SettingsManager.current_settings.fullscreen = button_pressed
+		SettingsManager.save_settings()
+
+### Why this method is powerful:
+
+Zero parsing: You don't have to manually write code to convert text back into numbers or booleans. 
+Godot tracks the exact data types automatically.Infinite expansion:
+If you decide to add 10 more @export variables to game_settings.gd later, 
+you don't need to change your saving or loading code at all. They will just work.
+
+Would you like to turn this into an AutoLoad (Singleton) so you can access your settings from any script in your game, 
+or do you need help applying the loaded values to your audio buses and window manager on startup?
