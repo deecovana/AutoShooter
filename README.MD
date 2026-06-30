@@ -1,11 +1,12 @@
 # AutoShooter GitHub @deecovana repo (CC4 2012-2026)
 
 ## Save and load Settings and Object's @export vars
-- Create save_settings.MD to learn how to save the Game's Settings
-- Create save_objects.MD - to save the Object's values
-- Add MD parts: 
+- Created save_settings.MD to learn how to save the Game's Settings
+- Created save_objects.MD - to save the Object's values
+- Added MD parts: 
 	1. Save AutoLoad Settings and Options 
-	2. (preamble) Options Menu UI 
+	2. (preamble) Options Menu UI
+- Fixed MD code visuals
 
 ## Add 2 basic 5x5km landscapes
 - With and without Strata levels
