@@ -1,5 +1,8 @@
 # AutoShooter GitHub @deecovana repo (CC4 2012-2026)
 
+## Continue in GoDot 4.7.1
+- Reopen, resave
+
 ## Save and load Settings and Object's @export vars
 - Created save_settings.MD to learn how to save the Game's Settings
 - Created save_objects.MD - to save the Object's values
